@@ -1,5 +1,7 @@
 package com.xuetang9.todo.dao;
 
+import com.xuetang9.todo.model.TodoTask;
+
 /**
  * 
  * @function 番茄钟任务数据层接口
@@ -9,6 +11,7 @@ package com.xuetang9.todo.dao;
  * @version 1.0.0
  * @copyright 吴桐
  */
-public interface TodoTaskDao extends BaseDao {
-
+public interface TodoTaskDao extends BaseDao<TodoTask> {
+	
+	String getPath();
 }

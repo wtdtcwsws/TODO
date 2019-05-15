@@ -62,7 +62,7 @@ public class MainFrame extends MyFrame{
 	private void configPanel() {
 //		label.setBounds(10, 10, 100, 50);
 		panel.setPreferredSize(new Dimension(600,380));
-		panel.setIconPath("src/com/xuetang9/todo/resources/images/scrollpanel0.jpg");
+		panel.setIconPath("src/com/xuetang9/todo/resources/images/scrollpanel1.jpg");
 		panel.setW(600);
 		panel.setH(380);
 		
@@ -89,7 +89,7 @@ public class MainFrame extends MyFrame{
 	}
 	private void installComponentsNew() {
 		contentPane.add(addButton);
-		myContentPane.add(scrollPane);
+		contentPane.add(scrollPane);
 		installComponents();
 		scrollPane.setViewportView(panel);
 		
