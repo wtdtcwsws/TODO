@@ -3,8 +3,6 @@ package com.xuetang9.todo.ui.controller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 
 import com.xuetang9.todo.ui.view.MyFrame;
@@ -25,20 +23,6 @@ public class CloseButtonHandler extends MouseAdapter{
 	public CloseButtonHandler(MyFrame myFrame) {
 		super();
 		this.myFrame = myFrame;
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-		((JButton)e.getSource()).setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭2.png"));
-	
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-		((JButton)e.getSource()).setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭.png"));
-	
 	}
 
 	@Override

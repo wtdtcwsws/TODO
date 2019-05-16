@@ -82,7 +82,12 @@ public class TodoTask implements Serializable {
 	public static void main(String[] args) {
 
 		System.out.println(new TodoTask());
-	
+		try {
+			Thread.sleep(100, 1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println(new TodoTask());
 	}
 	

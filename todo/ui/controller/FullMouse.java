@@ -2,7 +2,6 @@ package com.xuetang9.todo.ui.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import com.xuetang9.todo.ui.view.MyPanel;
 

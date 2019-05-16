@@ -70,7 +70,6 @@ public class MyPanel extends JPanel {
 		g.drawImage(icon.getImage(), x, y, w, h, null);
 //		g.drawImage(icon.getImage(), x, y, w, h, x, y, w, h, null);
 
-	
 
 	}
 

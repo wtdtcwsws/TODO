@@ -17,31 +17,32 @@ import com.xuetang9.todo.service.impl.TodoTaskServiceImpl;
  * @copyright 吴桐
  */
 public class MainUI {
-//	public static void main(String[] args) {
-//		TodoTaskService todoTaskService = new TodoTaskServiceImpl();
-//		List<TodoTask> TodoTasks = todoTaskService.find();
-//		for (TodoTask todoTask : TodoTasks) {
-//			System.out.println(todoTask);
-//		}
-//		Scanner input = new Scanner(System.in);
-////		TodoTask task = new TodoTask();
-////		System.out.println("请输入任务名称：");
-////		String taskName = input.next();
-////		System.out.println("请输入任务大小：");
-////		int taskSize = input.nextInt();
-////		System.out.println("请输入任务个数：");
-////		int taskNum = input.nextInt();
-////		System.out.println("请输入任务休息：");
-////		int breakSize = input.nextInt();
-////		System.out.println("请输入任务心得：");
-////		String feeling = input.next();
-////		task.setTaskName(taskName);
-////		task.setTaskSize(taskSize);
-////		task.setTaskNum(taskNum);
-////		task.setBreakSize(breakSize);
-////		task.setFeeling(feeling);
-////		todoTaskService.add(task);
-//		
-//		
-//	}
+	public static void main(String[] args) {
+		TodoTaskService todoTaskService = new TodoTaskServiceImpl();
+		List<TodoTask> TodoTasks = todoTaskService.find();
+		for (TodoTask todoTask : TodoTasks) {
+			System.out.println(todoTask);
+		}
+		Scanner input = new Scanner(System.in);
+//		TodoTask task = new TodoTask();
+//		System.out.println("请输入任务名称：");
+//		String taskName = input.next();
+//		System.out.println("请输入任务大小：");
+//		int taskSize = input.nextInt();
+//		System.out.println("请输入任务个数：");
+//		int taskNum = input.nextInt();
+//		System.out.println("请输入任务休息：");
+//		int breakSize = input.nextInt();
+//		System.out.println("请输入任务心得：");
+//		String feeling = input.next();
+//		task.setTaskName(taskName);
+//		task.setTaskSize(taskSize);
+//		task.setTaskNum(taskNum);
+//		task.setBreakSize(breakSize);
+//		task.setFeeling(feeling);
+//		todoTaskService.add(task);
+		
+		
+	}
+	
 }
