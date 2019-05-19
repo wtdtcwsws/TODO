@@ -44,14 +44,19 @@ public class MainFrame extends MyFrame {
 	 * 最小化
 	 */
 	private JButton minimizeButton;
-
+	/**
+	 * 添加按钮
+	 */
 	private JButton addButton;
-	private JScrollPane scrollPane;
-	private MyPanel panel ;
-	private MyPanel myContentPane;
-	private JPanel contentPane;
+	/**
+	 * 滑动面板
+	 */
 	private TaskPanel taskPanel;
+	/**
+	 * 滑动背景面板
+	 */
 	private JPanel underTaskPanel;
+
 	public MainFrame() {
 		single = this;
 		init();
@@ -59,8 +64,6 @@ public class MainFrame extends MyFrame {
 
 	@Override
 	public void init() {
-
-		contentPane = (JPanel) this.getContentPane();
 
 		configComponents();
 
@@ -71,42 +74,20 @@ public class MainFrame extends MyFrame {
 
 	private void configComponents() {
 		configButtons();
-		configSrcollPane();
 		configPanel();
 
 	}
 
 	private void configPanel() {
-//		label.setBounds(10, 10, 100, 50);
-		panel = new MyPanel();
-		panel.setPreferredSize(new Dimension(600, 380));
-		panel.setIconPath("resources/images/scrollpanel1.jpg");
-		panel.setW(600);
-		panel.setH(380);
-
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		
 		myPanel = new MyPanel();
-		
-		/**/
-		underTaskPanel=new JPanel();
+		underTaskPanel = new JPanel();
 		underTaskPanel.setBounds(0, 0, 800, 440);
 		underTaskPanel.setOpaque(false);
 		underTaskPanel.setLayout(null);
-		
-		
+
 		taskPanel = new TaskPanel(600, 330);
 		taskPanel.setLocation(100, 50);
 		
-		/**/
-	}
-
-	private void configSrcollPane() {
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(100, 50, 600, 330);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBackground(Color.blue);
 
 	}
 
@@ -124,7 +105,7 @@ public class MainFrame extends MyFrame {
 		minimizeButton.setContentAreaFilled(false);
 		minimizeButton.setIcon(new ImageIcon("resources/images/最小化.png"));
 		minimizeButton.setRolloverIcon(new ImageIcon("resources/images/最小化2.png"));
-		
+
 		addButton = new JButton();
 		addButton.setBounds(700, 345, 40, 40);
 		addButton.setBorder(null);
@@ -137,16 +118,16 @@ public class MainFrame extends MyFrame {
 		/**
 		 * 为保证层级管理，安装顺序也要注意
 		 */
+		/**
+		 * 使用layered层级管理，不用再考虑安装顺序
+		 */
 		this.getLayeredPane().add(myPanel, LayerZIndex.LAYER_BACKGROUND);
 
 		this.getLayeredPane().add(minimizeButton, LayerZIndex.LAYER_CONTENT);
-		this.getLayeredPane().add(closeButton,LayerZIndex.LAYER_CONTENT);
+		this.getLayeredPane().add(closeButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(addButton, LayerZIndex.LAYER_CONTENT);
-//		this.getLayeredPane().add(scrollPane,LayerZIndex.LAYER_CONTENT);
-		this.getLayeredPane().add(underTaskPanel,LayerZIndex.LAYER_CONTENT);
-//		this.getLayeredPane().add(taskPanel,LayerZIndex.LAYER_MENU);
-		underTaskPanel.add(taskPanel,0);
-		scrollPane.setViewportView(panel);
+		underTaskPanel.add(taskPanel, 0);
+		this.getLayeredPane().add(underTaskPanel, LayerZIndex.LAYER_CONTENT);
 
 	}
 
@@ -165,6 +146,7 @@ public class MainFrame extends MyFrame {
 		g.setColor(new Color(255, 255, 255));
 		g.drawString("TODO", 45, 35);
 		g.drawImage(iconImg.getImage(), 10, 10, 40, 40, 0, 0, 30, 30, null);
+	
 	}
 
 	public static MainFrame getInstance() {
@@ -174,5 +156,5 @@ public class MainFrame extends MyFrame {
 	public TaskPanel getTaskPanel() {
 		return taskPanel;
 	}
-	
+
 }

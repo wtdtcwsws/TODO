@@ -262,9 +262,12 @@ public class AddPanel extends JPanel{
 		//每次绘制背景后都绘制子件
 		this.paintChildren(g);
 	}
-
+	/**
+	 * 主界面移除该面板
+	 */
 	public void dispose() {
 		MainFrame.getInstance().remove(this);
+		System.out.println(this);
 		
 	}
 

@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -47,7 +49,7 @@ public class TaskLabel extends JLabel {
 		this.taskName = taskName;
 		this.setForeground(Color.WHITE);
 		this.setText(taskName);
-		this.setFont(new Font("行楷", Font.PLAIN, 40));
+		this.setFont(new Font("华文琥珀", Font.PLAIN, 40));
 		this.setLayout(null);
 		init();
 	}
@@ -75,8 +77,15 @@ public class TaskLabel extends JLabel {
 	}
 
 	private void insatllListeners() {
-		// TODO Auto-generated method stub
-		
+		startButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainFrame.getInstance().setVisible(false);
+				new StartFrame();
+				
+			}
+		});
 	}
 
 	/**
