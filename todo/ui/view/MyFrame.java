@@ -24,7 +24,7 @@ public  abstract class MyFrame extends JFrame {
 		 * 无修饰边框
 		 */
 		this.setUndecorated(true);
-		this.init();
+//		this.init();
 		this.setVisible(true);
 		
 	}

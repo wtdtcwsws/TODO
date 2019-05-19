@@ -28,9 +28,21 @@ import com.xuetang9.todo.ui.controller.MinimizeButtonHandler;
  * @copyright 吴桐
  */
 public class MainFrame extends MyFrame {
+	/**
+	 * 单例
+	 */
 	private static MainFrame single;
+	/**
+	 * 背景面板
+	 */
 	private MyPanel myPanel;
+	/**
+	 * 右上红叉
+	 */
 	private JButton closeButton;
+	/**
+	 * 最小化
+	 */
 	private JButton minimizeButton;
 
 	private JButton addButton;
@@ -38,7 +50,8 @@ public class MainFrame extends MyFrame {
 	private MyPanel panel ;
 	private MyPanel myContentPane;
 	private JPanel contentPane;
-
+	private TaskPanel taskPanel;
+	private JPanel underTaskPanel;
 	public MainFrame() {
 		single = this;
 		init();
@@ -54,7 +67,6 @@ public class MainFrame extends MyFrame {
 		installComponents();
 
 		installListeners();
-
 	}
 
 	private void configComponents() {
@@ -68,14 +80,25 @@ public class MainFrame extends MyFrame {
 //		label.setBounds(10, 10, 100, 50);
 		panel = new MyPanel();
 		panel.setPreferredSize(new Dimension(600, 380));
-		panel.setIconPath("src/com/xuetang9/todo/resources/images/scrollpanel1.jpg");
+		panel.setIconPath("resources/images/scrollpanel1.jpg");
 		panel.setW(600);
 		panel.setH(380);
 
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		
 		myPanel = new MyPanel();
-
+		
+		/**/
+		underTaskPanel=new JPanel();
+		underTaskPanel.setBounds(0, 0, 800, 440);
+		underTaskPanel.setOpaque(false);
+		underTaskPanel.setLayout(null);
+		
+		
+		taskPanel = new TaskPanel(600, 330);
+		taskPanel.setLocation(100, 50);
+		
+		/**/
 	}
 
 	private void configSrcollPane() {
@@ -92,22 +115,22 @@ public class MainFrame extends MyFrame {
 		closeButton.setBounds(760, 25, 20, 20);
 		closeButton.setBorder(null);
 		closeButton.setContentAreaFilled(false);
-		closeButton.setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭.png"));
-		closeButton.setRolloverIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭2.png"));
+		closeButton.setIcon(new ImageIcon("resources/images/红叉红.png"));
+		closeButton.setRolloverIcon(new ImageIcon("resources/images/红叉蓝.png"));
 
 		minimizeButton = new JButton();
 		minimizeButton.setBounds(720, 25, 20, 20);
 		minimizeButton.setBorder(null);
 		minimizeButton.setContentAreaFilled(false);
-		minimizeButton.setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/最小化.png"));
-		minimizeButton.setRolloverIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/最小化2.png"));
+		minimizeButton.setIcon(new ImageIcon("resources/images/最小化.png"));
+		minimizeButton.setRolloverIcon(new ImageIcon("resources/images/最小化2.png"));
 		
 		addButton = new JButton();
-		addButton.setBounds(700, 70, 30, 30);
+		addButton.setBounds(700, 345, 40, 40);
 		addButton.setBorder(null);
 		addButton.setContentAreaFilled(false);
-		addButton.setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/添加.png"));
-		addButton.setRolloverIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/添加2.png"));
+		addButton.setIcon(new ImageIcon("resources/images/添加圆.png"));
+		addButton.setRolloverIcon(new ImageIcon("resources/images/添加圆2.png"));
 	}
 
 	private void installComponents() {
@@ -119,8 +142,10 @@ public class MainFrame extends MyFrame {
 		this.getLayeredPane().add(minimizeButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(closeButton,LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(addButton, LayerZIndex.LAYER_CONTENT);
-		this.getLayeredPane().add(scrollPane,LayerZIndex.LAYER_CONTENT);
-
+//		this.getLayeredPane().add(scrollPane,LayerZIndex.LAYER_CONTENT);
+		this.getLayeredPane().add(underTaskPanel,LayerZIndex.LAYER_CONTENT);
+//		this.getLayeredPane().add(taskPanel,LayerZIndex.LAYER_MENU);
+		underTaskPanel.add(taskPanel,0);
 		scrollPane.setViewportView(panel);
 
 	}
@@ -134,7 +159,7 @@ public class MainFrame extends MyFrame {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		ImageIcon iconImg = new ImageIcon("src/com/xuetang9/todo/resources/images/番茄.png");
+		ImageIcon iconImg = new ImageIcon("resources/images/番茄.png");
 
 		g.setFont(new Font("华文彩云", Font.BOLD, 30));
 		g.setColor(new Color(255, 255, 255));
@@ -145,4 +170,9 @@ public class MainFrame extends MyFrame {
 	public static MainFrame getInstance() {
 		return single;
 	}
+
+	public TaskPanel getTaskPanel() {
+		return taskPanel;
+	}
+	
 }

@@ -7,10 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -59,7 +63,6 @@ public class AddPanel extends JPanel{
 		installComponents();
 		installListeners();
 		
-		
 	}
 	private void configComponents() {
 		configButtons();
@@ -68,7 +71,9 @@ public class AddPanel extends JPanel{
 		
 		
 	}
-
+	/**
+	 * 配置文本标签
+	 */
 	private void configLabels() {
 		 taskNameLabel = new JLabel("任务名称:");
 		 taskNameLabel.setBounds(230+15, 70, 120, 30);
@@ -105,7 +110,9 @@ public class AddPanel extends JPanel{
 		 longBreakSizeLabel.setForeground(new Color(102,93,76));
 		 longBreakSizeLabel.setHorizontalAlignment(JLabel.RIGHT);
 	}
-
+	/**
+	 * 配置文本域
+	 */
 	private void configTextFields() {
 		 taskNameField = new JTextField("任务1");
 		 taskNameField.setBounds(230+120+17, 70, 180, 30);
@@ -147,31 +154,35 @@ public class AddPanel extends JPanel{
 		 longBreakSizeField.setForeground(Color.WHITE);
 		 longBreakSizeField.setHorizontalAlignment(JLabel.LEFT);
 	}
-
+	/**
+	 * 配置按钮
+	 */
 	private void configButtons() {
-		close.setBounds(550, 35, 30, 30);
+		close.setBounds(575, 30, 30, 30);
 		close.setBorder(null);
 		close.setContentAreaFilled(false);
-		close.setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭.png"));
-		close.setRolloverIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭2.png"));//移上的效果
+		close.setIcon(new ImageIcon("resources/images/红叉红.png"));
+		close.setRolloverIcon(new ImageIcon("resources/images/红叉黑.png"));//移上的效果
 		
 		cancel.setBounds(310, 320, 80, 30);
 		cancel.setBorder(null);
 		cancel.setContentAreaFilled(false);
-		cancel.setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭.png"));
-		cancel.setRolloverIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/关闭2.png"));//移上的效果
+		cancel.setIcon(new ImageIcon("resources/images/关闭.png"));
+		cancel.setRolloverIcon(new ImageIcon("resources/images/关闭2.png"));//移上的效果
 		cancel.setRequestFocusEnabled(false);
 		
 		confirm.setBounds(450, 320, 80, 30);
 		confirm.setBorder(null);
 		confirm.setContentAreaFilled(false);
 		confirm.setRequestFocusEnabled(false);
-		confirm.setIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/确定3.png"));
-		confirm.setRolloverIcon(new ImageIcon("src/com/xuetang9/todo/resources/images/确定2.png"));//移上的效果
+		confirm.setIcon(new ImageIcon("resources/images/确定3.png"));
+		confirm.setRolloverIcon(new ImageIcon("resources/images/确定2.png"));//移上的效果
 
 		
 	}
-
+	/**
+	 * 组装组件
+	 */
 	private void installComponents() {
 		add(close, 0);
 		add(confirm, 0);
@@ -188,8 +199,13 @@ public class AddPanel extends JPanel{
 		add(longBreakSizeField,0);
 	
 	}
-
+	/**
+	 * 组装监听器
+	 */
 	private void installListeners() {
+		
+		
+		
 		close.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -227,7 +243,10 @@ public class AddPanel extends JPanel{
 			addTask.setLongBreakSize(Integer.parseInt(longBreakSizeField.getText()));
 			boolean success = todoTaskService.add(addTask);
 			if (success) {
+				new JOptionPane().showMessageDialog(AddPanel.this, "添加成功！");
+				mainFrame.getInstance().getTaskPanel().addTask(addTask.getTaskName(),addTask.getId());
 				setVisible(false);
+				AddPanel.this.dispose();
 				mainFrame.repaint();
 				
 			}
@@ -238,10 +257,15 @@ public class AddPanel extends JPanel{
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		ImageIcon icon = new ImageIcon("src/com/xuetang9/todo/resources/images/login_bg.png");
+		ImageIcon icon = new ImageIcon("resources/images/login_bg.png");
 		g.drawImage(icon.getImage(), 240, 30, 360, 330, null);
 		//每次绘制背景后都绘制子件
 		this.paintChildren(g);
+	}
+
+	public void dispose() {
+		MainFrame.getInstance().remove(this);
+		
 	}
 
 	

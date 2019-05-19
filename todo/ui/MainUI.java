@@ -24,6 +24,13 @@ public class MainUI {
 			System.out.println(todoTask);
 		}
 		Scanner input = new Scanner(System.in);
+		System.out.println("输入id删除");
+		String id = input.next();
+		boolean success = todoTaskService.delete(id);
+		if (success) {
+			System.out.println("删除成功");
+		}
+		
 //		TodoTask task = new TodoTask();
 //		System.out.println("请输入任务名称：");
 //		String taskName = input.next();

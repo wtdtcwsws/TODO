@@ -46,7 +46,7 @@ public class MyPanel extends JPanel {
 	MouseAdapter mouseAdapter;
 	public MyPanel() {
 
-		this("src/com/xuetang9/todo/resources/images/panel.jpg", 0, 0, 800, 440);
+		this("resources/images/panel.jpg", 0, 0, 800, 440);
 
 	}
 

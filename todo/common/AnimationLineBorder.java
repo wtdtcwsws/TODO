@@ -76,7 +76,9 @@ public class AnimationLineBorder implements Border {
 		}
 		if (isStart) {
 			if (c.hasFocus()) {
-				drawExtension(g, w, h);
+//				drawExtension(g, w, h);
+				g.setColor(highlightColor);
+				g.drawLine(0, h - thickness, w, h - thickness);
 			} else {
 //				drawShrink(g, w, h);
 				g.setColor(highlightColor);
