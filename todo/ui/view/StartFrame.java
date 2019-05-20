@@ -1,9 +1,16 @@
 package com.xuetang9.todo.ui.view;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
+import com.xuetang9.todo.common.LayerZIndex;
+import com.xuetang9.todo.ui.controller.CloseButtonHandler;
+import com.xuetang9.todo.ui.controller.MinimizeButtonHandler;
+import com.xuetang9.todo.ui.controller.StartCloseButtonHandler;
+import com.xuetang9.todo.ui.controller.StartMinimizeButtonHandler;
 /**
  *  
  * @function 任务开始界面
@@ -28,6 +35,8 @@ public class StartFrame extends MyFrame{
 	private JButton minimizeButton;
 
 	public StartFrame() {
+		this.setSize(200, 300);
+		this.setLocationRelativeTo(null);
 		init();
 	}
 	
@@ -42,16 +51,54 @@ public class StartFrame extends MyFrame{
 		
 	}
 	private void configComponents() {
+		configButtons();
+		configPanel();
 		
 		
 	}
+	private void configButtons() {
+		closeButton = new JButton();
+		closeButton.setBounds(170, 15, 20, 20);
+		closeButton.setBorder(null);
+		closeButton.setContentAreaFilled(false);
+		closeButton.setIcon(new ImageIcon("resources/images/红叉红.png"));
+		closeButton.setRolloverIcon(new ImageIcon("resources/images/红叉蓝.png"));
+
+		minimizeButton = new JButton();
+		minimizeButton.setBounds(145, 20, 20, 20);
+		minimizeButton.setBorder(null);
+		minimizeButton.setContentAreaFilled(false);
+		minimizeButton.setIcon(new ImageIcon("resources/images/最小化.png"));
+		minimizeButton.setRolloverIcon(new ImageIcon("resources/images/最小化2.png"));
+	}
+
+
+	private void configPanel() {
+		
+		myPanel = new MyPanel();
+	}
+
+
 	private void installComponents() {
-		// TODO Auto-generated method stub
+		this.getLayeredPane().add(myPanel, LayerZIndex.LAYER_BACKGROUND);
+
+		this.getLayeredPane().add(minimizeButton, LayerZIndex.LAYER_CONTENT);
+		this.getLayeredPane().add(closeButton, LayerZIndex.LAYER_CONTENT);
 		
 	}
 	private void installListeners() {
-		// TODO Auto-generated method stub
-		
+		closeButton.addMouseListener(new StartCloseButtonHandler(this));
+		minimizeButton.addMouseListener(new StartMinimizeButtonHandler(this));
+		this.addWindowListener(new WindowAdapter() {
+
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				//任务开始界面关闭后显示主界面
+				MainFrame.getInstance().setVisible(true);
+			}
+			
+		});
 	}
 	
 }

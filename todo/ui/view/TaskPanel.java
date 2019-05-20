@@ -46,8 +46,9 @@ public class TaskPanel extends JPanel {
 	 * 偏移调整量
 	 */
 	private int adjustY = 10;
-
+	private static TaskPanel single;
 	public TaskPanel(int width, int height) {
+		single = this;
 		taskCount = 0;
 		this.init(width, height);
 		contentPane.setPreferredSize(new Dimension(width, height * 2));
@@ -155,6 +156,10 @@ public class TaskPanel extends JPanel {
 	
 	public JPanel getContentPane() {
 		return contentPane;
+	}
+
+	public static TaskPanel getInstance() {
+		return single;
 	}
 	
 }

@@ -7,9 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -34,21 +31,21 @@ import com.xuetang9.todo.service.impl.TodoTaskServiceImpl;
  * @copyright 吴桐
  */
 public class AddPanel extends JPanel{
-	MainFrame mainFrame;
-	JButton close = new JButton();
-	JButton cancel  = new JButton();
-	JButton confirm = new JButton();
-	JLabel taskNameLabel;
-	JLabel taskSizeLabel;
-	JLabel taskNumLabel;
-	JLabel breakSizeLabel;
-	JLabel longBreakSizeLabel;
+	private MainFrame mainFrame;
+	private JButton close = new JButton();
+	private JButton cancel  = new JButton();
+	private JButton confirm = new JButton();
+	private JLabel taskNameLabel;
+	private JLabel taskSizeLabel;
+	private JLabel taskNumLabel;
+	private JLabel breakSizeLabel;
+	private JLabel longBreakSizeLabel;
 	
-	JTextField taskNameField;
-	JTextField taskSizeField;
-	JTextField taskNumField;
-	JTextField breakSizeField;
-	JTextField longBreakSizeField;
+	private JTextField taskNameField;
+	private JTextField taskSizeField;
+	private JTextField taskNumField;
+	private JTextField breakSizeField;
+	private JTextField longBreakSizeField;
 	
 	public AddPanel(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -210,7 +207,9 @@ public class AddPanel extends JPanel{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				setVisible(false);
+				AddPanel.this.dispose();
 				mainFrame.repaint();
 			}
 			
@@ -220,6 +219,7 @@ public class AddPanel extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
+				AddPanel.this.dispose();
 				mainFrame.repaint();
 			}
 			
@@ -233,7 +233,7 @@ public class AddPanel extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			
 			TodoTask addTask = new TodoTask();
 			TodoTaskService  todoTaskService = new TodoTaskServiceImpl();
 			addTask.setTaskName(taskNameField.getText());
@@ -249,6 +249,8 @@ public class AddPanel extends JPanel{
 				AddPanel.this.dispose();
 				mainFrame.repaint();
 				
+			}else {
+				new JOptionPane().showMessageDialog(AddPanel.this, "添加失败！");
 			}
 		}
 		
@@ -267,7 +269,8 @@ public class AddPanel extends JPanel{
 	 */
 	public void dispose() {
 		MainFrame.getInstance().remove(this);
-		System.out.println(this);
+//		System.out.println(this.hashCode());
+//		System.out.println(mainFrame.getComponentCount());
 		
 	}
 
