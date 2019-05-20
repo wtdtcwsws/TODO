@@ -87,7 +87,7 @@ public class TaskLabel extends JLabel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				MainFrame.getInstance().setVisible(false);
-				new StartFrame();
+				new StartFrame(TaskLabel.this);
 
 			}
 		});
