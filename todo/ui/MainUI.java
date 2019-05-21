@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.xuetang9.todo.model.TodoTask;
-import com.xuetang9.todo.service.TodoTaskService;
-import com.xuetang9.todo.service.impl.TodoTaskServiceImpl;
+import com.xuetang9.todo.service.RecordService;
+import com.xuetang9.todo.service.impl.RecordServiceImpl;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.xuetang9.todo.service.impl.TodoTaskServiceImpl;
  */
 public class MainUI {
 	public static void main(String[] args) {
-		TodoTaskService todoTaskService = new TodoTaskServiceImpl();
+		RecordService todoTaskService = new RecordServiceImpl();
 		List<TodoTask> TodoTasks = todoTaskService.find();
 		for (TodoTask todoTask : TodoTasks) {
 			System.out.println(todoTask);

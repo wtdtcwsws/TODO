@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 /**
  * 
@@ -25,7 +24,7 @@ import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
  * @copyright 吴桐
  */
 public class TaskLabel extends JLabel {
-	int random = (int) (Math.random() * 100) % 3 + 1;
+	int random = (int) (Math.random() * 100) % 7 + 1;
 	ImageIcon icon = new ImageIcon("resources/images/taskLabel" + random + ".png");
 
 	private int r = 1;
@@ -39,12 +38,15 @@ public class TaskLabel extends JLabel {
 	 * 任务信息 --id 不显示，用于开始任务
 	 */
 	private String id;
+	/**
+	 * 开始按钮
+	 */
 	private JButton startButton;
-
+	/**
+	 * 默认构造
+	 */
 	public TaskLabel() {
 		this.setPreferredSize(new Dimension(500, 50));
-//		this.setBackground(new Color(r, g, b));
-//		this.setOpaque(true);
 		this.setBorder(null);
 	}
 
@@ -53,7 +55,7 @@ public class TaskLabel extends JLabel {
 		this.id = id;
 		this.taskName = taskName;
 		this.setForeground(Color.WHITE);
-		this.setText(taskName);
+		this.setText(this.taskName);
 		this.setFont(new Font("华文琥珀", Font.PLAIN, 40));
 		this.setLayout(null);
 		init();
@@ -70,7 +72,8 @@ public class TaskLabel extends JLabel {
 		startButton = new JButton("开始");
 		startButton.setBounds(400, 10, 80, 30);
 		startButton.setBorder(null);
-		startButton.setBackground(new Color(r, g, b, 255));
+		startButton.setBackground(new Color(r, g, b));
+		startButton.setForeground(new Color(r+230, g+140, b+40));
 		startButton.setFocusable(false);
 		startButton.setFont(new Font("华文琥珀", Font.PLAIN, 20));
 

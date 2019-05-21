@@ -233,7 +233,7 @@ public class AddPanel extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			//TODO 保存到本地
 			TodoTask addTask = new TodoTask();
 			TodoTaskService  todoTaskService = new TodoTaskServiceImpl();
 			addTask.setTaskName(taskNameField.getText());
@@ -269,9 +269,6 @@ public class AddPanel extends JPanel{
 	 */
 	public void dispose() {
 		MainFrame.getInstance().remove(this);
-//		System.out.println(this.hashCode());
-//		System.out.println(mainFrame.getComponentCount());
-		
 	}
 
 	

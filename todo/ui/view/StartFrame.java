@@ -10,11 +10,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import com.xuetang9.todo.common.LayerZIndex;
 import com.xuetang9.todo.common.Music;
 import com.xuetang9.todo.model.TodoTask;
+import com.xuetang9.todo.service.RecordService;
 import com.xuetang9.todo.service.TodoTaskService;
+import com.xuetang9.todo.service.impl.RecordServiceImpl;
 import com.xuetang9.todo.service.impl.TodoTaskServiceImpl;
 import com.xuetang9.todo.ui.controller.StartCloseButtonHandler;
 import com.xuetang9.todo.ui.controller.StartMinimizeButtonHandler;
@@ -49,6 +52,10 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 	 * 开始的任务标签
 	 */
 	private TaskLabel startLabel;
+	/**
+	 * 开始的任务状态
+	 */
+	private JLabel statusLabel;
 	/**
 	 * 任务时间
 	 */
@@ -88,16 +95,16 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 	 */
 	Music bgmMusic = new Music(bgm);
 	/**
-	 * 单例模式
+	 * 
 	 */
-	private static StartFrame single;
+	private TodoTask recordTask = new TodoTask();
 
 	public StartFrame(TaskLabel startLabel) {
-		single = this;
 		this.startLabel = startLabel;
 		this.setSize(400, 300);
 		this.setLocationRelativeTo(null);
 		this.setLayout(null);
+		this.setDefaultCloseOperation(0);
 		// 窗口置顶
 		this.setAlwaysOnTop(true);
 		init();
@@ -123,9 +130,15 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 
 	private void configLabel() {
 		countDownLabel = new JLabel();
-		countDownLabel.setBounds(90, 80, 200, 80);
+		countDownLabel.setBounds(100, 80, 200, 80);
 		countDownLabel.setFont(new Font("华文琥珀", Font.PLAIN, 35));
 		countDownLabel.setForeground(Color.WHITE);
+		countDownLabel.setText("开始任务");
+
+		statusLabel = new JLabel();
+		statusLabel.setBounds(70, 180, 240, 20);
+		statusLabel.setFont(new Font("华文琥珀", Font.PLAIN, 20));
+		statusLabel.setForeground(Color.WHITE);
 
 	}
 
@@ -161,6 +174,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		this.getLayeredPane().add(minimizeButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(closeButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(countDownLabel, LayerZIndex.LAYER_CONTENT);
+		this.getLayeredPane().add(statusLabel, LayerZIndex.LAYER_CONTENT);
 
 		this.getLayeredPane().add(startButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(stopButton, LayerZIndex.LAYER_CONTENT);
@@ -181,6 +195,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 			}
 		});
 		this.addWindowListener(new WindowAdapter() {
+
 
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -203,6 +218,11 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		int taskNum = startTask.getTaskNum();
 		int breakSize = startTask.getBreakSize();
 		int longBreakSize = startTask.getLongBreakSize();
+		// 任务记录接收数据
+		recordTask.setTaskName(startTask.getTaskName());
+		recordTask.setTaskSize(longBreakSize);
+		recordTask.setTaskNum(taskNum);
+		recordTask.setBreakSize(breakSize);
 		// 休息的秒数
 		int breakSecond = breakSize * MINUTELENGTH;
 		// 长休的秒数
@@ -213,8 +233,8 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		int rounds = 1;
 
 		while (taskNum > 0) {
-			System.out.printf("正在进行第%s轮，还剩%s轮%n", rounds, taskNum - 1);
-
+			String status = String.format("正在进行第%s轮，还剩%s轮%n", rounds, taskNum - 1);
+			statusLabel.setText(status);
 			// 计时中
 			while (taskSecond >= 0 && taskNum > 0) {
 				try {
@@ -230,6 +250,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 					int sec = taskSecond % 60;
 
 					String timeformat = String.format("计时中%s:%s", mint, sec);
+
 					countDownLabel.setText(timeformat);
 					// 每一秒刷新
 					Thread.sleep(1000);
@@ -310,17 +331,62 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 			// 如果任务数=0更换完成音效
 			if (taskNum == 0) {
 				breakPath = completePath;
+				// TODO 保存到本地
+//				completeRecord();
 			}
-			try {
-				Music breakDing = new Music(breakPath);
-				breakDing.Start(breakPath);
-				Thread.sleep(1000);
-				breakDing.Pause();
-				
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+		}
+		try {
+			Music breakDing = new Music(breakPath);
+			breakDing.Start(breakPath);
+			Thread.sleep(1000);
+			breakDing.Pause();
+			if (taskNum == 0) {
+				countDownLabel.setText("任务完成！");
+				// 取消-2，是-0，否-1，红叉-default
+				// TODO 图标需修改
+				int choice = new JOptionPane().showOptionDialog(this, "是否书写心得", "任务完成",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+						new ImageIcon("resources/images/番茄.png"), null, null);
+				switch (choice) {
+				case 0:
 
+					RecordFrame recordFrame = new RecordFrame(recordTask);
+					while (recordFrame.isShowing()) {
+						//TODO big难题
+						Thread.sleep(1000);
+					}
+					completeRecord();
+
+					break;
+				case 1:
+					System.out.println(1);
+					break;
+				case 2:
+					System.out.println(2);
+					break;
+
+				default:
+					break;
+				}
+			}
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * 保存记录
+	 */
+	public void completeRecord() {
+		RecordService recordService = new RecordServiceImpl();
+		boolean success = recordService.add(recordTask);
+		if (success) {
+			new JOptionPane().showMessageDialog(StartFrame.this, "记录成功！");
+			StartFrame.this.dispose();
+
+		} else {
+			new JOptionPane().showMessageDialog(StartFrame.this, "记录失败！");
 		}
 	}
 
@@ -351,9 +417,9 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 	 * 
 	 * @return
 	 */
-	public static StartFrame getInstance() {
-		return single;
-	}
+//	public static StartFrame getInstance() {
+//		return single;
+//	}
 
 	/**
 	 * 得到当前bgm路径

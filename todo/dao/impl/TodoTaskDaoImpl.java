@@ -16,7 +16,6 @@ public class TodoTaskDaoImpl extends AbstractBaseDao<TodoTask> implements TodoTa
 
 	@Override
 	public String getPath() {
-		
 		return "src/com/xuetang9/todo/data/todotask.data";
 		
 	}

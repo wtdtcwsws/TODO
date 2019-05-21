@@ -2,14 +2,15 @@ package com.xuetang9.todo.ui.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,12 +42,16 @@ public class ChangeTaskFrame extends JFrame {
 	private JLabel taskNumLabel;
 	private JLabel breakSizeLabel;
 	private JLabel longBreakSizeLabel;
+	private JLabel selectMusicLabel;
 
 	private JTextField taskNameField;
 	private JTextField taskSizeField;
 	private JTextField taskNumField;
 	private JTextField breakSizeField;
 	private JTextField longBreakSizeField;
+
+	private String[] musics = { "雨声", "小溪1", "小溪2", "钢琴1", "钢琴2", "钢琴3", "高亢1", "高亢2" };
+	private JComboBox<String> comBox;
 	/**
 	 * 确定按钮
 	 */
@@ -63,8 +68,11 @@ public class ChangeTaskFrame extends JFrame {
 		this.setSize(360, 330);
 		this.setLocationRelativeTo(MainFrame.getInstance());
 		this.setLayout(null);
+		this.setResizable(false);
 		this.setDefaultCloseOperation(2);
 		this.setTitle("修改任务");
+//		this.getLayeredPane().setBackground(new Color(1, 89, 79));
+		this.getContentPane().setBackground(new Color(64, 179, 236));
 		configComponents();
 		installComponents();
 		installListeners();
@@ -74,16 +82,24 @@ public class ChangeTaskFrame extends JFrame {
 		configLabels();
 		configTextFields();
 		configButtons();
+		configComboBox();
+	}
+
+	private void configComboBox() {
+		comBox = new JComboBox<String>(musics);
+		comBox.setBounds(130, 240, 100, 40);
+		comBox.setFont(new Font("华文琥珀", Font.PLAIN, 25));
+
 	}
 
 	private void configButtons() {
 		confirm = new JButton();
-		confirm.setBounds(210, 240, 80, 30);
+		confirm.setBounds(230, 240, 80, 30);
 		confirm.setBorder(null);
 		confirm.setContentAreaFilled(false);
 		confirm.setRequestFocusEnabled(false);
-		confirm.setIcon(new ImageIcon("resources/images/确定3.png"));
-		confirm.setRolloverIcon(new ImageIcon("resources/images/确定2.png"));// 移上的效果
+		confirm.setIcon(new ImageIcon("resources/images/确定2.png"));
+		confirm.setRolloverIcon(new ImageIcon("resources/images/确定3.png"));// 移上的效果
 	}
 
 	private void configLabels() {
@@ -91,36 +107,43 @@ public class ChangeTaskFrame extends JFrame {
 		taskNameLabel.setBounds(230 + 15 - 240, 70 - 30, 120, 30);
 		taskNameLabel.setFont(new Font("华文琥珀", Font.PLAIN, 25));
 		taskNameLabel.setBorder(null);
-		taskNameLabel.setForeground(new Color(102, 93, 76));
+		taskNameLabel.setForeground(new Color(102+50, 93, 76));
 		taskNameLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		taskSizeLabel = new JLabel("任务时长:");
 		taskSizeLabel.setBounds(230 + 15 - 240, 110 - 30, 120, 30);
 		taskSizeLabel.setFont(new Font("华文琥珀", Font.PLAIN, 25));
 		taskSizeLabel.setBorder(null);
-		taskSizeLabel.setForeground(new Color(102, 93, 76));
+		taskSizeLabel.setForeground(new Color(102, 93+50, 76));
 		taskSizeLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		taskNumLabel = new JLabel("任务个数:");
 		taskNumLabel.setBounds(230 + 15 - 240, 150 - 30, 120, 30);
 		taskNumLabel.setFont(new Font("华文琥珀", Font.PLAIN, 25));
 		taskNumLabel.setBorder(null);
-		taskNumLabel.setForeground(new Color(102, 93, 76));
+		taskNumLabel.setForeground(new Color(102, 93, 76+50));
 		taskNumLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		breakSizeLabel = new JLabel("休息时长:");
 		breakSizeLabel.setBounds(230 + 15 - 240, 190 - 30, 120, 30);
 		breakSizeLabel.setFont(new Font("华文琥珀", Font.PLAIN, 25));
 		breakSizeLabel.setBorder(null);
-		breakSizeLabel.setForeground(new Color(102, 93, 76));
+		breakSizeLabel.setForeground(new Color(102, 93+50, 76+50));
 		breakSizeLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 		longBreakSizeLabel = new JLabel("长休时间:");
 		longBreakSizeLabel.setBounds(230 + 15 - 240, 230 - 30, 120, 30);
 		longBreakSizeLabel.setFont(new Font("华文琥珀", Font.PLAIN, 25));
 		longBreakSizeLabel.setBorder(null);
-		longBreakSizeLabel.setForeground(new Color(102, 93, 76));
+		longBreakSizeLabel.setForeground(new Color(102+50, 93+50, 76));
 		longBreakSizeLabel.setHorizontalAlignment(JLabel.RIGHT);
+
+		selectMusicLabel = new JLabel("背景音乐:");
+		selectMusicLabel.setBounds(230 + 15 - 240, 230 - 30 + 40, 120, 30);
+		selectMusicLabel.setFont(new Font("华文琥珀", Font.PLAIN, 25));
+		selectMusicLabel.setBorder(null);
+		selectMusicLabel.setForeground(new Color(102+50, 93, 76+50));
+		selectMusicLabel.setHorizontalAlignment(JLabel.RIGHT);
 
 	}
 
@@ -173,6 +196,7 @@ public class ChangeTaskFrame extends JFrame {
 		this.getLayeredPane().add(taskNumLabel, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(breakSizeLabel, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(longBreakSizeLabel, LayerZIndex.LAYER_CONTENT);
+		this.getLayeredPane().add(selectMusicLabel, LayerZIndex.LAYER_CONTENT);
 
 		add(taskNameField, 0);
 		add(taskSizeField, 0);
@@ -181,6 +205,8 @@ public class ChangeTaskFrame extends JFrame {
 		add(longBreakSizeField, 0);
 
 		this.getLayeredPane().add(confirm, LayerZIndex.LAYER_MENU);
+		this.getLayeredPane().add(comBox, LayerZIndex.LAYER_MENU);
+
 	}
 
 	private void installListeners() {
@@ -218,7 +244,7 @@ public class ChangeTaskFrame extends JFrame {
 					new JOptionPane().showMessageDialog(ChangeTaskFrame.this, "修改成功！");
 					ChangeTaskFrame.this.dispose();
 //					TaskPanel.getInstance().loadTask();
-					//任务标签名称更新
+					// 任务标签名称更新
 					taskLabel.update(changeTask.getTaskName());
 
 				} else {
@@ -229,5 +255,22 @@ public class ChangeTaskFrame extends JFrame {
 			}
 		});
 	}
+
+	@Override
+	public void paintComponents(Graphics g) {
+//		paintAll(g);
+		ImageIcon icon = new ImageIcon("resources/images/scrollpanel0.jpg");
+		g.drawImage(icon.getImage(), 0, 0, 360, 330, null);
+		super.paintComponents(g);
+	}
+
+//	@Override
+//	public void paint(Graphics g) {
+//		// TODO Auto-generated method stub
+//		super.paint(g);
+//		ImageIcon icon = new ImageIcon("resources/images/scrollpanel0.jpg");
+//		g.drawImage(icon.getImage(), 0, 0, 360, 330, null);
+//	}
+
 
 }
