@@ -346,7 +346,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 				// TODO 图标需修改
 				int choice = new JOptionPane().showOptionDialog(this, "是否书写心得", "任务完成",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-						new ImageIcon("resources/images/番茄.png"), null, null);
+						new ImageIcon("resources/images/心得.png"), null, null);
 				switch (choice) {
 				case 0:
 

@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -48,6 +50,10 @@ public class MainFrame extends MyFrame {
 	 * 添加按钮
 	 */
 	private JButton addButton;
+	/**
+	 * 记录按钮
+	 */
+	private JButton recordButton;
 	/**
 	 * 滑动面板
 	 */
@@ -112,6 +118,13 @@ public class MainFrame extends MyFrame {
 		addButton.setContentAreaFilled(false);
 		addButton.setIcon(new ImageIcon("resources/images/添加圆.png"));
 		addButton.setRolloverIcon(new ImageIcon("resources/images/添加圆2.png"));
+		
+		recordButton = new JButton();
+		recordButton.setBounds(700, 280, 40, 40);
+		recordButton.setBorder(null);
+		recordButton.setContentAreaFilled(false);
+		recordButton.setIcon(new ImageIcon("resources/images/记录按钮2.png"));
+		recordButton.setRolloverIcon(new ImageIcon("resources/images/记录按钮1.png"));
 	}
 
 	private void installComponents() {
@@ -126,6 +139,7 @@ public class MainFrame extends MyFrame {
 		this.getLayeredPane().add(minimizeButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(closeButton, LayerZIndex.LAYER_CONTENT);
 		this.getLayeredPane().add(addButton, LayerZIndex.LAYER_CONTENT);
+		this.getLayeredPane().add(recordButton, LayerZIndex.LAYER_CONTENT);
 		underTaskPanel.add(taskPanel, 0);
 		this.getLayeredPane().add(underTaskPanel, LayerZIndex.LAYER_CONTENT);
 
@@ -133,6 +147,15 @@ public class MainFrame extends MyFrame {
 
 	private void installListeners() {
 		addButton.addMouseListener(new AddButtonHandler(this));
+		recordButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new FullRecordFrame();
+				
+			}
+		});
+		
 		closeButton.addMouseListener(new CloseButtonHandler(this));
 		minimizeButton.addMouseListener(new MinimizeButtonHandler(this));
 	}
