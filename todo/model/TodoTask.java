@@ -15,6 +15,10 @@ import java.util.Date;
  * @copyright 吴桐
  */
 public class TodoTask implements Serializable {
+//	/**
+//	 * 背景音
+//	 */
+//	private String bgm;
 	/**
 	 * 番茄钟名称
 	 */
@@ -156,6 +160,16 @@ public class TodoTask implements Serializable {
 	public Date getDate() {
 		return date;
 	}
+
+//	public String getBgm() {
+//		return bgm;
+//	}
+//
+//	public void setBgm(String bgm) {
+//		this.bgm = bgm;
+//	}
+
+
 
 	/**
 	 * 对字符串md5加密

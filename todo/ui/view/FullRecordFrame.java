@@ -16,6 +16,9 @@ import javax.swing.KeyStroke;
 import com.sun.glass.events.KeyEvent;
 import com.xuetang9.todo.service.RecordService;
 import com.xuetang9.todo.service.impl.RecordServiceImpl;
+import com.xuetang9.todo.ui.controller.RecordMessageTablePopupMenuHandler;
+import com.xuetang9.todo.ui.controller.TableChangeMenuItemHandler;
+import com.xuetang9.todo.ui.controller.TableDeleteMenuItemHandler;
 import com.xuetang9.todo.ui.model.RecordTableModel;
 /**
  * 
@@ -96,24 +99,17 @@ public class FullRecordFrame extends JFrame{
 	}
 
 	private void installComponents() {
-		installMenu();
-//		this.setJMenuBar(menuBar);
+//		installMenu();
 		mouseRightButtonMenu.add(mouseRightButtonDeleteMenuItem);
-		mouseRightButtonMenu.add(mouseRightButtonChangeMenuItem);
+//		mouseRightButtonMenu.add(mouseRightButtonChangeMenuItem);
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 
 	}
 
-	private void installMenu() {
-		menuBar.add(customerMenu);
-		customerMenu.add(addcustomerMenuItem);
-		customerMenu.add(RecycleMenuItem);
-
-	}
 
 	private void installListeners() {
-//		recordMessageTable.addMouseListener(new CustomerMessageTablePopupMenuHandler(this));
-//		mouseRightButtonDeleteMenuItem.addActionListener(new TableDeleteMenuItemHandler(this));
+		recordMessageTable.addMouseListener(new RecordMessageTablePopupMenuHandler(this));
+		mouseRightButtonDeleteMenuItem.addActionListener(new TableDeleteMenuItemHandler(this));
 //		mouseRightButtonChangeMenuItem.addActionListener(new TableChangeMenuItemHandler());
 	}
 

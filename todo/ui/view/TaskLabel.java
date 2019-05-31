@@ -42,6 +42,7 @@ public class TaskLabel extends JLabel {
 	 * 开始按钮
 	 */
 	private JButton startButton;
+	private String bgmGetComBox;
 	/**
 	 * 默认构造
 	 */

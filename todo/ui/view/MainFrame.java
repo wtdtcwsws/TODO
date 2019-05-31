@@ -165,7 +165,7 @@ public class MainFrame extends MyFrame {
 		super.paint(g);
 		ImageIcon iconImg = new ImageIcon("resources/images/番茄.png");
 
-		g.setFont(new Font("华文彩云", Font.BOLD, 30));
+		g.setFont(new Font("华文琥珀", Font.BOLD, 30));
 		g.setColor(new Color(255, 255, 255));
 		g.drawString("TODO", 45, 35);
 		g.drawImage(iconImg.getImage(), 10, 10, 40, 40, 0, 0, 30, 30, null);

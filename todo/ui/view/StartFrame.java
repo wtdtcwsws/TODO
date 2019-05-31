@@ -35,7 +35,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 	/**
 	 * 一分钟秒数
 	 */
-	final static int MINUTELENGTH = 1;
+	final static int MINUTELENGTH = 60;
 	/**
 	 * 背景面板
 	 */
@@ -106,7 +106,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		this.setLayout(null);
 		this.setDefaultCloseOperation(0);
 		// 窗口置顶
-		this.setAlwaysOnTop(true);
+//		this.setAlwaysOnTop(true);
 		init();
 		t1.start();
 	}
@@ -120,28 +120,34 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		installListeners();
 
 	}
-
+	/**
+	 * 配置组件
+	 */
 	private void configComponents() {
 		configButtons();
 		configPanel();
 		configLabel();
 
 	}
-
+	/**
+	 * 配置标签
+	 */
 	private void configLabel() {
 		countDownLabel = new JLabel();
-		countDownLabel.setBounds(100, 80, 200, 80);
+		countDownLabel.setBounds(120, 80, 200, 80);
 		countDownLabel.setFont(new Font("华文琥珀", Font.PLAIN, 35));
-		countDownLabel.setForeground(Color.WHITE);
+		countDownLabel.setForeground(new Color(140, 50, 70));
 		countDownLabel.setText("开始任务");
 
 		statusLabel = new JLabel();
-		statusLabel.setBounds(70, 180, 240, 20);
+		statusLabel.setBounds(90, 180, 240, 20);
 		statusLabel.setFont(new Font("华文琥珀", Font.PLAIN, 20));
-		statusLabel.setForeground(Color.WHITE);
+		statusLabel.setForeground(new Color(0, 100, 200));
 
 	}
-
+	/**
+	 * 配置按钮
+	 */
 	private void configButtons() {
 		closeButton = new JButton();
 		closeButton.setBounds(370, 15, 20, 20);
@@ -162,12 +168,16 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		stopButton = new JButton("暂停");
 		stopButton.setBounds(240, 225, 80, 30);
 	}
-
+	/**
+	 * 配置面板
+	 */
 	private void configPanel() {
 
 		myPanel = new MyPanel();
 	}
-
+	/**
+	 * 安装组件
+	 */
 	private void installComponents() {
 		this.getLayeredPane().add(myPanel, LayerZIndex.LAYER_BACKGROUND);
 
@@ -180,7 +190,9 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		this.getLayeredPane().add(stopButton, LayerZIndex.LAYER_CONTENT);
 
 	}
-
+	/**
+	 * 安装监听
+	 */
 	private void installListeners() {
 		closeButton.addMouseListener(new StartCloseButtonHandler(this));
 		minimizeButton.addMouseListener(new StartMinimizeButtonHandler(this));
@@ -207,7 +219,9 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 		startButton.addActionListener(this);
 		stopButton.addActionListener(this);
 	}
-
+	/**
+	 * 线程运行
+	 */
 	@Override
 	public void run() {
 
@@ -252,6 +266,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 					String timeformat = String.format("计时中%s:%s", mint, sec);
 
 					countDownLabel.setText(timeformat);
+					countDownLabel.setForeground(new Color(230,170,0));
 					// 每一秒刷新
 					Thread.sleep(1000);
 					taskSecond--;
@@ -287,6 +302,7 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 						int sec = longBreakSecond % 60;
 
 						String timeformat = String.format("休息中%s:%s", mint, sec);
+						countDownLabel.setForeground(new Color(230,230,50));
 						countDownLabel.setText(timeformat);
 						Thread.sleep(1000);
 						longBreakSecond--;
@@ -342,8 +358,8 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 			breakDing.Pause();
 			if (taskNum == 0) {
 				countDownLabel.setText("任务完成！");
+				countDownLabel.setForeground(new Color(0,230,50));
 				// 取消-2，是-0，否-1，红叉-default
-				// TODO 图标需修改
 				int choice = new JOptionPane().showOptionDialog(this, "是否书写心得", "任务完成",
 						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
 						new ImageIcon("resources/images/心得.png"), null, null);
@@ -359,10 +375,8 @@ public class StartFrame extends MyFrame implements ActionListener, Runnable {
 
 					break;
 				case 1:
-					System.out.println(1);
 					break;
 				case 2:
-					System.out.println(2);
 					break;
 
 				default:

@@ -12,4 +12,6 @@ import com.xuetang9.todo.model.TodoTask;
  */
 public interface RecordService extends BaseService<TodoTask> {
 
+	boolean delete(Object id);
+
 }

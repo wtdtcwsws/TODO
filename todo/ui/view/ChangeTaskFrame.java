@@ -52,6 +52,7 @@ public class ChangeTaskFrame extends JFrame {
 
 	private String[] musics = { "雨声", "小溪1", "小溪2", "钢琴1", "钢琴2", "钢琴3", "高亢1", "高亢2" };
 	private JComboBox<String> comBox;
+	
 	/**
 	 * 确定按钮
 	 */
@@ -238,6 +239,8 @@ public class ChangeTaskFrame extends JFrame {
 				changeTask.setTaskNum(Integer.parseInt(taskNumField.getText()));
 				changeTask.setBreakSize(Integer.parseInt(breakSizeField.getText()));
 				changeTask.setLongBreakSize(Integer.parseInt(longBreakSizeField.getText()));
+//				changeTask.setBgm((String)comBox.getSelectedItem());
+				
 				// 更新修改
 				boolean success = todoTaskService.update(changeTask);
 				if (success) {
@@ -263,6 +266,13 @@ public class ChangeTaskFrame extends JFrame {
 		g.drawImage(icon.getImage(), 0, 0, 360, 330, null);
 		super.paintComponents(g);
 	}
+	/**
+	 * 得到下拉框
+	 * @return
+	 */
+	public JComboBox<String> getComBox() {
+		return comBox;
+	}
 
 //	@Override
 //	public void paint(Graphics g) {
@@ -272,5 +282,5 @@ public class ChangeTaskFrame extends JFrame {
 //		g.drawImage(icon.getImage(), 0, 0, 360, 330, null);
 //	}
 
-
+	
 }

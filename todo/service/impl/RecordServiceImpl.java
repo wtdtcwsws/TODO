@@ -29,11 +29,12 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(Object date) {
 		records = find();
+		
 		int delIndex = -1;
 		for (TodoTask todoTask : records) {
-			if (todoTask.getId().equals(id)) {
+			if (todoTask.getDate().equals(date)) {
 				delIndex = records.indexOf(todoTask);
 				break;
 			}
@@ -85,6 +86,23 @@ public class RecordServiceImpl implements RecordService {
 			return new ArrayList<TodoTask>();
 		}
 
+	}
+
+	@Override
+	public boolean delete(String id) {
+		records = find();
+		int delIndex = -1;
+		for (TodoTask todoTask : records) {
+			if (todoTask.getId().equals(id)) {
+				delIndex = records.indexOf(todoTask);
+				break;
+			}
+		}
+		if (delIndex != -1) {
+			records.remove(delIndex);
+			return recordDao.save(records);
+		}
+		return false;
 	}
 
 
